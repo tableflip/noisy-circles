@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Pitch Detector</title>
+  <link href='http://fonts.googleapis.com/css?family=Alike' rel='stylesheet' type='text/css'>
+  <style>
+  body {
+    font: 14pt 'Alike', sans-serif;
+    /*background: linear-gradient(to bottom, #25afee 0%,#ffffff 100%);
+    background-size: 100% 100%;*/
+    margin: 0;
+    background: white;
+  }
+  #note {
+    font-size: 164px;
+  }
+  .droptarget {
+    background-color: #348781
+  }
+  div.confident {
+    color: black;
+  }
+  div.vague {
+/*    background-color: #25AFEE;
+*/  }
+  #note {
+    display: inline-block;
+    height:180px;
+    text-align: left;
+  }
+  #skype-logo {
+    background-image: url("img/skype-word.png");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-color: transparent;
+    background-size: 30% auto;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: background-size 0.1s ease;
+  }
+  #canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #detector {
+    background: #25afee;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    transition: opacity 0.1s ease;
+  }
+  body.c #detector, body.csharp #detector {
+    opacity: 0.9;
+  }
+
+  body.c #skype-logo, body.csharp #skype-logo {
+    background-size: 24% auto;
+  }
+
+  body.d #detector, body.dsharp #detector {
+    opacity: 0.8;
+  }
+
+  body.d #skype-logo, body.dsharp #skype-logo {
+    background-size: 26% auto;
+  }
+
+  body.e #detector {
+    opacity: 0.7;
+  }
+
+  body.e #skype-logo {
+    background-size: 28% auto;
+  }
+
+  body.f #detector, body.fsharp #detector {
+    opacity: 0.6;
+  }
+
+  body.f #skype-logo, body.fsharp #skype-logo {
+    background-size: 30% auto;
+  }
+
+  body.g #detector, body.gsharp #detector {
+    opacity: 0.5;
+  }
+
+  body.g #skype-logo, body.gsharp #skype-logo {
+    background-size: 32% auto;
+  }
+
+  body.a #detector, body.asharp #detector {
+    opacity: 0.4;
+  }
+
+  body.a #skype-logo, body.asharp #skype-logo {
+    background-size: 34% auto;
+  }
+
+  body.b #detector {
+    opacity: 0.3;
+  }
+
+  body.b #skype-logo {
+    background-size: 36% auto;
+  }
+
+  </style>
+</head>
+
+<body>
+  <script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+  <script src="js/pitchdetect.js"></script>
+
+  <!-- <button onclick="this.innerText = togglePlayback()">use demo audio</button>
+  <button onclick="toggleLiveInput()">use live input</button> -->
+  
+  <div id="detector" class="vague">
+    <div class="pitch">
+      <span id="pitch"></span>
+    </div>
+    <div class="note">
+      <span id="note"></span>
+    </div>
+    <canvas id="canvas" width="1000" height="720"></canvas>
+    <div id="detune">
+      <span id="detune_amt"></span>
+      <span id="flat"></span>
+      <span id="sharp"></span>
+    </div>
+  </div>
+  <div id="skype-logo">
+  </div>
+</body>
+
+</html>
