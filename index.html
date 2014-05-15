@@ -34,7 +34,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-color: transparent;
-    background-size: 30% auto;
+    background-size: 95% auto;
     position: absolute;
     bottom: 0;
     top: 0;
@@ -59,7 +59,19 @@
     left: 0;
     right: 0;
     margin: 0;
-    transition: opacity 0.1s ease;
+    transition: opacity 0.05s ease;
+  }
+  #flash {
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  #flash.white {
+    background-color: #3FC9FF;
   }
   body.c #detector, body.csharp #detector {
     opacity: 0.9;
@@ -128,18 +140,9 @@
   <button onclick="toggleLiveInput()">use live input</button> -->
   
   <div id="detector" class="vague">
-    <div class="pitch">
-      <span id="pitch"></span>
-    </div>
-    <div class="note">
-      <span id="note"></span>
-    </div>
     <canvas id="canvas" width="1000" height="720"></canvas>
-    <div id="detune">
-      <span id="detune_amt"></span>
-      <span id="flat"></span>
-      <span id="sharp"></span>
-    </div>
+  </div>
+  <div id="flash">
   </div>
   <div id="skype-logo">
   </div>

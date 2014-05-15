@@ -27,16 +27,27 @@ var sourceNode = null;
 var analyser = null;
 var theBuffer = null;
 var detectorElem,
-  pitchElem,
-  noteElem,
-  detuneElem,
-  detuneAmount;
+    flashElem;
 var WIDTH = 300;
 var CENTER = 150;
 var HEIGHT = 42;
 var confidence = 0;
 var currentPitch = 0;
-var particles = []
+var particles = [];
+var colors = [
+  "#00306F",
+  "#00306F",
+  "#00306F",
+  "#1BA5E4",
+  "#0086C5",
+  "#8BFFFF",
+  "#FFFFFF",
+  "#00306F",
+  "#0063A2",
+  "#00306F",
+  "#007CBB",
+  "#72FCFF"
+]
 
 window.onload = function() {
   var request = new XMLHttpRequest();
@@ -50,12 +61,7 @@ window.onload = function() {
   request.send();
 
   detectorElem = document.body;
-  pitchElem = document.getElementById("pitch");
-  noteElem = document.getElementById("note");
-  detuneElem = document.getElementById("detune");
-  detuneAmount = document.getElementById("detune_amt");
-
-  toggleLiveInput()
+  flashElem = document.getElementById("flash")
 
   //Initializing the canvas
   var canvas = document.getElementById("canvas");
@@ -63,6 +69,8 @@ window.onload = function() {
   setInterval(function () {
     draw(canvas)
   }, 33)
+
+  toggleLiveInput()
 }
 
 function error() {
@@ -322,16 +330,15 @@ function updatePitch(time) {
 
   if (confidence < 10) {
     //detectorElem.className = "vague";
-    detuneElem.className = "none";
   } else {
+    //flash_screen(canvas)
     var note = noteFromPitch(currentPitch);
-    console.log(note % 12)
-    for (i = 0; i < 5; i++) {
+    //for (i = 0; i < 3; i++) {
       particles.push(new create_particle(canvas, note % 12));
-    }
+    //}
     var detune = centsOffFromPitch(currentPitch, note);
     if (detune == 0) {
-      detuneElem.className = "none";
+
     } else {
       if (Math.abs(detune) < 10) {
         //canvasContext.fillStyle = "green";
@@ -340,9 +347,9 @@ function updatePitch(time) {
       }
 
       if (detune < 0) {
-        detuneElem.className = "flat";
+        // detuneElem.className = "flat";
       } else {
-        detuneElem.className = "sharp";
+        // detuneElem.className = "sharp";
       }
     }
   }
@@ -354,21 +361,16 @@ function updatePitch(time) {
 
 //Lets animate the particle
 
-  function draw(canvas) {
+  function draw (canvas) {
     var ctx = canvas.getContext("2d");
-    var W = canvas.offsetWidth
-    var H = canvas.offsetHeight
-    //Moving this BG paint code insde draw() will help remove the trail
-    //of the particle
-    //Lets paint the canvas black
-    //But the BG paint shouldn't blend with the previous frame
-    ctx.globalCompositeOperation = "source-over";
+    var W = canvas.width
+    var H = canvas.height
     //Lets reduce the opacity of the BG paint to give the final touch
     ctx.fillStyle = "#25afee";
     ctx.fillRect(0, 0, W, H);
 
     //Lets blend the particle with the BG
-    ctx.globalCompositeOperation = "lighter";
+    ctx.globalCompositeOperation = "source-over";
 
     //Lets draw particles from the array now
     for (var t = 0; t < particles.length; t++) {
@@ -376,29 +378,20 @@ function updatePitch(time) {
 
       ctx.beginPath();
 
-      //Time for some colors
-      // var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
-      // gradient.addColorStop(0, "transparent");
-      // gradient.addColorStop(0.5, "#25afee");
-      // gradient.addColorStop(1, "transparent");
-
-      ctx.arc(p.x, p.y, p.radius, Math.PI * 2, false);
-      ctx.fillStyle = 'white';
+      ctx.arc(p.x, p.y, 12, Math.PI * 2, false);
+      ctx.fillStyle = p.color;
       ctx.fill();
-      ctx.stroke();
 
-      //Lets use the velocity now
       p.x += p.vx;
       p.y += p.vy;
 
-      //To prevent the balls from moving out of the canvas
+      //To delete the balls once they've moved out of the canvas
       if (p.x < -50 || p.y < -50 || p.x > W + 50 || p.y > H + 50) particles.splice(t, 1)
     }
   }
 
   //Lets create a function which will help us to create multiple particles
-
-  function create_particle(canvas, radius) {
+  function create_particle (canvas, radius) {
     var W = canvas.width
     var H = canvas.height
     //Random position on the canvas
@@ -406,10 +399,17 @@ function updatePitch(time) {
     this.y = H / 2;
 
     //Lets add random velocity to each particle
-    this.vx = Math.random() * 20 - 10;
-    this.vy = Math.random() * 20 - 10;
-    this.color = "rgba(1,1,1)";
+    this.vx = Math.random() * 40 - 20;
+    this.vy = Math.random() * 40 - 20;
+    this.color = colors[radius];
 
     //Random size
     this.radius = radius;
+  }
+
+  function flash_screen (canvas) {
+    flashElem.className = "white"
+    setTimeout(function () {
+      flashElem.className = ""
+    }, 10)
   }
