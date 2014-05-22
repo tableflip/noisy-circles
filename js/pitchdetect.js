@@ -248,7 +248,7 @@ function draw(canvas) {
   var W = canvas.width
   var H = canvas.height
   //Lets reduce the opacity of the BG paint to give the final touch
-  ctx.fillStyle = "#25afee";
+  ctx.fillStyle = "#085277";
   ctx.fillRect(0, 0, W, H);
 
   //Lets blend the particle with the BG
