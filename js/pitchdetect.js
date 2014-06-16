@@ -274,7 +274,7 @@ function draw(canvas) {
 
 // Creates a particle
 
-function create_particle(canvas, radius) {
+function create_particle (canvas, radius) {
   var W = canvas.width
   var H = canvas.height
   // Center on the canvas
@@ -289,14 +289,14 @@ function create_particle(canvas, radius) {
   this.radius = radius;
 }
 
-function flash_screen(canvas) {
+function flash_screen (canvas) {
   flashElem.className = "white"
   setTimeout(function() {
     flashElem.className = ""
   }, 10)
 }
 
-function getAverageVolume(array) {
+function getAverageVolume (array) {
   var values = 0;
   var average;
 
