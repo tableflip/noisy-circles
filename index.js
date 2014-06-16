@@ -1,6 +1,7 @@
 var https = require('https')
 var fs = require('fs')
 var url = require("url")
+var open = require("open")
 var path = require("path")
 var options = {
   key: fs.readFileSync('./certs/server.key'),
@@ -37,3 +38,5 @@ https.createServer(options, function (req, res) {
     });
   });
 }).listen(8000)
+
+open("https://localhost:8000")
