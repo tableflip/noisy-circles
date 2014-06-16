@@ -210,7 +210,7 @@ function updatePitch(time) {
 
   //  detectorElem.className = (confidence>50)?"confident":"vague";
 
-  if (confidence < 90) {
+  if (volume < 60) {
     //detectorElem.className = "vague";
   } else {
     //flash_screen(canvas)
@@ -260,7 +260,7 @@ function draw(canvas) {
 
     ctx.beginPath();
 
-    ctx.arc(p.x, p.y, volume / 10, Math.PI * 2, false);
+    ctx.arc(p.x, p.y, volume / 5, Math.PI * 2, false);
     ctx.fillStyle = p.color;
     ctx.fill();
 
