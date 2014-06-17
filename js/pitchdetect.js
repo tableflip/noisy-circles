@@ -210,7 +210,7 @@ function updatePitch(time) {
 
   //  detectorElem.className = (confidence>50)?"confident":"vague";
 
-  if (volume < 60) {
+  if (volume < 20) {
     //detectorElem.className = "vague";
   } else {
     //flash_screen(canvas)
