@@ -1,2 +1,2 @@
-cd ~/code/skype-noisy-circles/
+cd ~/Code/skype-noisy-circles/
 node index.js

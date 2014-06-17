@@ -23,7 +23,7 @@
     "grunt-contrib-watch": "^0.6.1"
   },
   "dependencies": {
-    "open": "0.0.5",
-    "localhost-ssl": "0.0.0"
+    "localhost-ssl": "0.0.0",
+    "open": "0.0.5"
   }
 }
